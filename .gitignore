@@ -1,0 +1,27 @@
+# === C++ 基础编译产物 ===
+*.obj
+*.o
+*.exe
+*.dll
+*.lib
+*.a
+*.pdb
+
+# === Qt Creator 特有文件 ===
+# 忽略所有个人配置文件（带有你电脑特定路径）
+*.user
+*.user.*
+# 忽略 Qt 自动生成的巨大构建文件夹
+build-*/
+Makefile*
+*.stash
+
+# === Visual Studio 特有文件 ===
+# 如果你之后也会用 VS2022 来写后端或者调试，这些 VS 的临时文件也要忽略
+.vs/
+*.sdf
+*.sln.docstates
+*.opensdf
+*.suo
+Debug/
+Release/
