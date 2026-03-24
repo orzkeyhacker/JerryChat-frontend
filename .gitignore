@@ -13,6 +13,8 @@
 *.user.*
 # 忽略 Qt 自动生成的巨大构建文件夹
 build-*/
+# 忽略任何以 build 开始的文件夹
+build*/
 Makefile*
 *.stash
 
