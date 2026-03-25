@@ -10,6 +10,9 @@
 #include <mutex>
 #include <QByteArray>
 #include <QNetworkReply>
+#include <QJsonObject>
+#include <QDir>
+#include <QSettings>
 //刷新qss
 extern std::function<void(QWidget *)> repolish;
 enum ReqId {
@@ -24,5 +27,5 @@ enum ErrorCodes {
     ERR_JSON = 1,
     ERR_NETWORK = 2
 };
-
+extern QString gate_url_prefix;
 #endif // GLOBAL_H

@@ -4,6 +4,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 RC_ICONS = icon.ico
 DESTDIR = ./bin
+CONFIG += file_copies
+
+config_copy.files = $${PWD}/config.ini
+CONFIG(debug, debug|release) {
+config_copy.path = $${OUT_PWD}/debug
+} else {
+config_copy.path = $${OUT_PWD}/release
+}
+COPIES += config_copy
 
 CONFIG += c++17
 
@@ -39,3 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     rc.qrc
+
+DISTFILES += \
+    config.ini
+

@@ -27,6 +27,12 @@ void RegisterDialog::on_get_code_clicked() {
     bool match = regex.match(email).hasMatch();
     if(match) {
         //发送验证码
+        QJsonObject json_obj;
+        json_obj["email"] = email;
+        //std::cout << _url.toStdString() << std::endl;
+        HttpMgr::GetInstance() -> PostHttpReq(QUrl(gate_url_prefix + "/get_varifycode"),
+                                            json_obj, ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
+
         showTip(tr("邮箱地址正确"), true);
     } else {
         showTip(tr("邮箱地址不正确"), false);
@@ -41,15 +47,14 @@ void RegisterDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err) 
     //解析json 字符串,res转化为Qbytearray
     QJsonDocument jsonDoc = QJsonDocument::fromJson(res.toUtf8());
     if(jsonDoc.isNull()) {
-        showTip(tr("json解析失败"), false);
+        showTip(tr("json解析失败1"), false);
         return;
     }
     if(!jsonDoc.isObject()) {
-        showTip(tr("json解析失败"), false);
+        showTip(tr("json解析失败2"), false);
         return;
     }
     _handlers[id](jsonDoc.object());
-    return;
 }
 
 void RegisterDialog::initHttpHandlers() {
@@ -67,12 +72,12 @@ void RegisterDialog::initHttpHandlers() {
 }
 
 void RegisterDialog::showTip(QString str, bool flag) {
-    ui->err_tip->setText(str);
-    if(flag) {
-        ui->err_tip->setProperty("state", "normal");
-    } else {
+    if(!flag) {
         ui->err_tip->setProperty("state", "abnormal");
+    } else {
+        ui -> err_tip ->setProperty("state", "normal");
     }
+    ui -> err_tip->setText(str);
     repolish(ui -> err_tip);
 }
 
